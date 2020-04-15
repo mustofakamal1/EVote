@@ -20,21 +20,14 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$this->load->view('templates/header');
+		$this->load->view('templates/sidebar');
+		$this->load->view('templates/footer');
+		// $this->load->view('welcome_message');
 	}
 
-	public function login()
+	public function next()
 	{
-		if(FALSE){ //conditional user adalah admin
-			redirect('admin/dashboard');
-		}
-		else if(TRUE){ //conditional user adalah voters
-			redirect('user/vote');
-		}
-		else {//conditional user guest
-			//redirect('welcome/index');
-			$this->load->view('welcome_message');
-		}
-
+		$this->load->view('base');
 	}
 }
