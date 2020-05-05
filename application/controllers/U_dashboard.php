@@ -6,7 +6,7 @@ class U_dashboard extends CI_Controller {
 	public function index(){
 		$this->load->view('templates/header');
 		//$this->load->view('common/vote');
-		$data['test'] = $this->session->flashdata('item');
-		$this->load->view('admin/dashboard', $data);
+		$data = $this->session->userdata('data');
+		$this->load->view('testing/userdata', $data);
 	}
 }

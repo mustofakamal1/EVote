@@ -1,3 +1,4 @@
+<!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
@@ -13,7 +14,8 @@
           <img src="<?php echo base_url(); ?>assets/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">User Name</a>
+          <a href="#" class="d-block">
+            <?php echo $user['name']; ?> </a>
         </div>
       </div>
 
@@ -22,8 +24,8 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
+          <li class="nav-item">
+            <a href="#" class="nav-link active" data-toggle="pill">
               <i class="nav-icon fas fa-tachometer-alt"></i> 
               <p>
                 Dashboard
@@ -31,7 +33,16 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="<?php echo base_url(); ?>a_dashboard/getUserList" class="nav-link" data-toggle="pill">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                User List
+                <!--<span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" data-toggle="pill"> 
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Vote Now
@@ -39,24 +50,24 @@
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li class="nav-item">
+            <a href="#" class="nav-link" data-toggle="pill">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Result
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li class="nav-item">
+            <a href="#" class="nav-link" data-toggle="pill">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
                 Profile
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li class="nav-item">
+            <a href="authentication/logout" class="nav-link" data-toggle="pill">
               <i class="nav-icon fas fa-tree"></i>
               <p>
                 Sign Out
@@ -69,3 +80,4 @@
     </div></div></div><div class="os-scrollbar os-scrollbar-horizontal os-scrollbar-unusable os-scrollbar-auto-hidden"><div class="os-scrollbar-track"><div class="os-scrollbar-handle" style="width: 100%; transform: translate(0px, 0px);"></div></div></div><div class="os-scrollbar os-scrollbar-vertical os-scrollbar-auto-hidden"><div class="os-scrollbar-track"><div class="os-scrollbar-handle" style="height: 44.5946%; transform: translate(0px, 0px);"></div></div></div><div class="os-scrollbar-corner"></div></div>
     <!-- /.sidebar -->
   </aside>
+  

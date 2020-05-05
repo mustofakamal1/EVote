@@ -28,6 +28,6 @@ class Welcome extends CI_Controller {
 
 	public function next()
 	{
-		$this->load->view('base');
+		$this->load->view('common/base');
 	}
 }
