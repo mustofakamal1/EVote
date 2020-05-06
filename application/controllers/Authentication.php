@@ -20,9 +20,12 @@ class Authentication extends CI_Controller {
 		$password = md5($password);
 		$email = "admin@gmail.com";
 		$password = "21232f297a57a5a743894a0e4a801fc3";
-		$your_url = "http://localhost/pemilu/database/user/$email/$password";
-		$data['json'] = file_get_contents($your_url);
-		$data['test'] = json_decode($data['json']);
+		// $your_url = "http://localhost/pemilu/database/user/$email/$password";
+		// $data['json'] = file_get_contents($your_url);
+		// $data['test'] = json_decode($data['json']);
+		$client = new GuzzleHttp\Client();
+		$res = $client->request('GET', "http://localhost/pemilu/database/user/$email/$password/");
+		$data['test'] = json_decode($res->getBody());
 		$login['id'] =  $data['test'] -> id;
 		$login['npm'] =  $data['test'] -> npm;
 		$login['name'] =  $data['test'] -> name;

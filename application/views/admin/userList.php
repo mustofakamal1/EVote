@@ -78,8 +78,8 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer clearfix">
-            <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Add User</a>
-            <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">Delete User</a>
+            <a href="<?php echo base_url(); ?>a_dashboard/add_user" class="btn btn-sm btn-info float-left">Add User</a>
+            <a href="<?php echo base_url(); ?>a_dashboard/add_user" class="btn btn-sm btn-secondary float-right">Delete User</a>
             </div>
             <!-- /.card-footer -->
         </div><!-- /.container-fluid -->
