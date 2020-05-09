@@ -42,10 +42,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?php echo base_url(); ?>a_dashboard/add_user" class="nav-link"> 
+            <a href="<?php echo base_url(); ?>a_dashboard/getCandidateList" class="nav-link"> 
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Vote Now
+                Candidate List
                 <!--<span class="right badge badge-danger">New</span> -->
               </p>
             </a>

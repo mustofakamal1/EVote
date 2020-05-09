@@ -19,16 +19,20 @@ class User extends REST_Controller {
      *
      * @return Response
     */
-	public function index_get($email = 0, $password = 0)
+	public function index_get($email = 0, $password = 0, $id = 0)
 	{
         if(!empty($email && $password)){
             $data = $this->db->get_where("user", ['email' => $email ,'password' => $password])->row_array();
-        }else{
+        }
+        else if($id) {
+            $data = $this->db->get_where("user", ['id' => $id])->row_array();
+        }
+        else{
             $data = $this->db->get("user")->result();
         }
      
         $this->response($data, REST_Controller::HTTP_OK);
-	}
+    }
       
     /**
      * Get All Data from this method.

@@ -5,90 +5,228 @@ class A_dashboard extends CI_Controller {
 	public function index()
 	{
 		$data = $this->session->userdata('data');
-		$this->load->view('templates/header');
-		$this->load->view('templates/sidebar', $data);
-		$this->load->view('admin/dashboard', $data);
-		$this->load->view('templates/footer');
+		if($data['user']['role_id'] == 1) {
+			$this->load->view('templates/header');
+			$this->load->view('templates/sidebar', $data);
+			$this->load->view('admin/dashboard', $data);
+			$this->load->view('templates/footer');
+		}
+		else {
+			redirect('authentication');
+			// echo $data['user']['role_id'];
+		}
+		
+	}
+
+	public function getUser($id)
+	{
+		$data = $this->session->userdata('data');
+		if($data['user']['role_id'] == 1) {
+			// $data['users'] = json_decode(file_get_contents("http://localhost/pemilu/database/user/"));
+			$client = new GuzzleHttp\Client();
+			$res = $client->request('GET', "http://localhost/pemilu/database/user/0/0/$id");
+			// echo $res->getStatusCode();
+			// echo $res->getHeader('content-type')[0];
+			// echo $res->getBody();
+			$data['getUser'] = json_decode($res->getBody());
+			// $this->load->view('templates/header');
+			// $this->load->view('templates/sidebar', $data);
+			// $this->load->view('admin/candidate_list', $data);
+			// $this->load->view('testing/users', $data);
+			// $this->load->view('templates/footer');
+			// echo $res->getBody();
+			return $data['getUser']->id;
+		}
+		else {
+			redirect('authentication');
+		}
 	}
 
 	public function getUserList()
 	{
 		$data = $this->session->userdata('data');
-		// $data['users'] = json_decode(file_get_contents("http://localhost/pemilu/database/user/"));
-		$client = new GuzzleHttp\Client();
-		$res = $client->request('GET', 'http://localhost/pemilu/database/user');
-		// echo $res->getStatusCode();
-		// echo $res->getHeader('content-type')[0];
-		// echo $res->getBody();
-		$data['users'] = json_decode($res->getBody());
-		$this->load->view('templates/header');
-		$this->load->view('templates/sidebar', $data);
-		$this->load->view('admin/userList', $data);
-		// $this->load->view('testing/users', $data);
-		$this->load->view('templates/footer');
+		if($data['user']['role_id'] == 1) {
+			// $data['users'] = json_decode(file_get_contents("http://localhost/pemilu/database/user/"));
+			$client = new GuzzleHttp\Client();
+			$res = $client->request('GET', 'http://localhost/pemilu/database/user');
+			// echo $res->getStatusCode();
+			// echo $res->getHeader('content-type')[0];
+			// echo $res->getBody();
+			$data['users'] = json_decode($res->getBody());
+			$this->load->view('templates/header');
+			$this->load->view('templates/sidebar', $data);
+			$this->load->view('admin/userList', $data);
+			// $this->load->view('testing/users', $data);
+			$this->load->view('templates/footer');
+		}
+		else {
+			redirect('authentication');
+		}
 	}
 
 	public function getFieldList()
 	{
 		$data = $this->session->userdata('data');
-		$data['users'] = json_decode(file_get_contents("http://localhost/pemilu/database/user/"));
-		$this->load->view('templates/header');
-		$this->load->view('templates/sidebar', $data);
-		$this->load->view('admin/dashboard', $data);
-		// $this->load->view('testing/users', $data);
-		$this->load->view('templates/footer');
+		if($data['user']['role_id'] == 1) {
+			$data['users'] = json_decode(file_get_contents("http://localhost/pemilu/database/user/"));
+			$this->load->view('templates/header');
+			$this->load->view('templates/sidebar', $data);
+			$this->load->view('admin/dashboard', $data);
+			// $this->load->view('testing/users', $data);
+			$this->load->view('templates/footer');
+		}
+		else {
+			redirect('authentication');
+		}
 	}
 
 	public function getCandidateList()
 	{
 		$data = $this->session->userdata('data');
-		$data['users'] = json_decode(file_get_contents("http://localhost/pemilu/database/user/"));
-		$this->load->view('templates/header');
-		$this->load->view('templates/sidebar', $data);
-		$this->load->view('admin/dashboard', $data);
-		// $this->load->view('testing/users', $data);
-		$this->load->view('templates/footer');
+		if($data['user']['role_id'] == 1) {
+			$data['users'] = json_decode(file_get_contents("http://localhost/pemilu/database/candidate/"));
+			$array = array();
+			$i = 0;
+			foreach ($data['users'] as $object) {
+				$data['canlist'] = json_decode(file_get_contents("http://localhost/pemilu/database/user/0/0/$object->user_id"));
+				// $data['users']['name'] = $data['canlist']->name;
+				// $test = array_merge(array($data['users'][$i]), array($data['canlist']));
+				$data['users'][$i]->name = $data['canlist']->name;
+				$i++;
+			}
+			// print_r($data['users']);
+			// echo $data['users'][0]['name'];
+			$this->load->view('templates/header');
+			$this->load->view('templates/sidebar', $data);
+			$this->load->view('admin/candidate_list', $data);
+			// $this->load->view('testing/users', $data);
+			$this->load->view('templates/footer');
+		}
+		else {
+			redirect('authentication');
+		}
 	}
 
 	public function add_user(){
 		$data = $this->session->userdata('data');
-		$this->load->view('templates/header');
-		$this->load->view('templates/sidebar', $data);
-		$this->load->view('admin/add_user');
-		$this->load->view('templates/footer');
+		if($data['user']['role_id'] == 1) {
+			$data['role'] = json_decode(file_get_contents("http://localhost/pemilu/database/role/"));
+			$data['majors'] = json_decode(file_get_contents("http://localhost/pemilu/database/majors/"));
+			$this->load->view('templates/header');
+			$this->load->view('templates/sidebar', $data);
+			$this->load->view('admin/add_user');
+			$this->load->view('templates/footer');
+		}
+		else {
+			redirect('authentication');
+		}
 	}
 
 	public function post_add_user(){
 		// $data = $this->input->post();
-		$npm 		= $this->input->post('npm');
-		$name 		= $this->input->post('name');
-		$phone 		= $this->input->post('phone');
-		$email 		= $this->input->post('email');
-		$password 	= $this->input->post('password');
-		$majors_id 	= $this->input->post('majors_id');
-		$role_id 	= $this->input->post('role_id');
-		// $data_session = array(
-		// 	'npm'			=> $this->input->post('npm'),
-		// 	'role_id'				=> $this->input->post('role_id'),
-		// );
-		// $this->session->set_userdata('test', $data);
+		$data = $this->session->userdata('data');
+		if($data['user']['role_id'] == 1) {
+			$npm 		= $this->input->post('npm');
+			$name 		= $this->input->post('name');
+			$phone 		= $this->input->post('phone');
+			$email 		= $this->input->post('email');
+			$password 	= $this->input->post('password');
+			$password 	= md5("$password");
+			$majors_id 	= $this->input->post('majors_id');
+			$role_id 	= $this->input->post('role_id');
+			// $data_session = array(
+			// 	'npm'			=> $this->input->post('npm'),
+			// 	'role_id'				=> $this->input->post('role_id'),
+			// );
+			// $this->session->set_userdata('test', $data);
+			$client = new GuzzleHttp\Client();
+			$res = $client->request('POST', 'http://localhost/pemilu/database/user/', [
+				'form_params' => [
+					'npm' => "$npm",
+					'name' => "$name",
+					'phone' => "$phone",
+					'email' => "$email",
+					'password' => "$password",
+					'majors_id' => "$majors_id",
+					'role_id' => "$role_id"
+				]
+				// 'form_params' => $data
+			]);
+			echo $res->getStatusCode();
+			echo $res->getHeader('content-type')[0];
+			echo $res->getBody();
+			redirect('a_dashboard/getUserList');
+			}
+		else {
+			redirect('authentication');
+		}
+	}
+
+	public function del_user($id){
+		// $test = $this->session->userdata('test');
+		$data = $this->session->userdata('data');
+		if($data['user']['role_id'] == 1) {
 		$client = new GuzzleHttp\Client();
-		$res = $client->request('POST', 'http://localhost/pemilu/database/user/', [
+		$res = $client->request('DELETE', "http://localhost/pemilu/database/user/$id");
+		redirect('a_dashboard/getUserList');
+		}
+		else {
+			redirect('authentication');
+		}
+	}
+
+	public function add_candidate(){
+		$data = $this->session->userdata('data');
+		if($data['user']['role_id'] == 1) {
+			$data['users'] = json_decode(file_get_contents("http://localhost/pemilu/database/user/"));
+			$data['field'] = json_decode(file_get_contents("http://localhost/pemilu/database/field/"));
+			$data['position'] = json_decode(file_get_contents("http://localhost/pemilu/database/position/"));
+			$this->load->view('templates/header');
+			$this->load->view('templates/sidebar', $data);
+			$this->load->view('admin/add_candidate', $data);
+			$this->load->view('templates/footer');
+		}
+		else {
+			redirect('authentication');
+		}
+	}
+
+	public function post_add_candidate(){
+		$data = $this->session->userdata('data');
+		if($data['user']['role_id'] == 1) {
+			$user_id 	= $this->input->post('user_id');
+			$field_id 		= $this->input->post('field_id');
+			$position_id 		= $this->input->post('position_id');
+		$client = new GuzzleHttp\Client();
+		$res = $client->request('POST', 'http://localhost/pemilu/database/candidate/', [
 			'form_params' => [
-				'npm' => "$npm",
-				'name' => "$name",
-				'phone' => "$phone",
-				'email' => "$email",
-				'password' => "$password",
-				'majors_id' => "$majors_id",
-				'role_id' => "$role_id"
+				'user_id' => "$user_id",
+				'field_id' => "$field_id",
+				'position_id' => "$position_id",
 			]
 			// 'form_params' => $data
 		]);
 		echo $res->getStatusCode();
 		echo $res->getHeader('content-type')[0];
 		echo $res->getBody();
-		redirect('a_dashboard/getUserList');
+		redirect('a_dashboard/getCandidateList');
+			}
+		else {
+			redirect('authentication');
+		}
+	}
+
+	public function del_candidate($id){
+		// $test = $this->session->userdata('test');
+		$data = $this->session->userdata('data');
+		if($data['user']['role_id'] == 1) {
+		$client = new GuzzleHttp\Client();
+		$res = $client->request('DELETE', "http://localhost/pemilu/database/candidate/$id");
+		redirect('a_dashboard/getCandidateList');
+		}
+		else {
+			redirect('authentication');
+		}
 	}
 
 	public function test(){

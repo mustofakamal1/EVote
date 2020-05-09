@@ -10,7 +10,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">User List</li>
+              <li class="breadcrumb-item active">Candidate List</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -23,7 +23,7 @@
       <div class="container-fluid">
         <div class="card">
             <div class="card-header border-transparent">
-            <h3 class="card-title">User List</h3>
+            <h3 class="card-title">Candidate List</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -41,13 +41,11 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>NPM</th>
-                    <th>Name</th>
-                    <th>Phone Number</th>
-                    <th>Email</th>
-                    <!-- <th>Password</th> -->
-                    <th>Majors</th>
-                    <th>Role</th>
+                    <th>User Id</th>
+                    <th>Nama</th>
+                    <th>Description</th>
+                    <th>Field Id</th>
+                    <th>Position Id</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -62,20 +60,18 @@
                 <?php foreach ($users as $object) : ?>
                     <tr>
                         <td><?php echo $object->id ?></td>
-                        <td><?php echo $object->npm ?></td>
+                        <td><?php echo $object->user_id ?></td>
                         <td><?php echo $object->name ?></td>
-                        <td><?php echo $object->phone ?></td>
-                        <td><?php echo $object->email ?></td>
-                        <!-- <td><?php echo $object->password ?></td> -->
-                        <td><?php echo $object->majors_id ?></td>
-                        <td><?php echo $object->role_id ?></td>
+                        <td><?php echo $object->description ?></td>
+                        <td><?php echo $object->field_id ?></td>
+                        <td><?php echo $object->position_id ?></td>
                         <td class="project-actions text-right">
                           <a class="btn btn-primary btn-sm" href="#">
                               <i class="fas fa-folder">
                               </i>
                               Profile
                           </a>
-                          <a class="btn btn-danger btn-sm" href="<?php echo base_url("a_dashboard/del_user/$object->id"); ?>">
+                          <a class="btn btn-danger btn-sm" href="<?php echo base_url("a_dashboard/del_candidate/$object->id"); ?>">
                               <i class="fas fa-trash">
                               </i>
                               Delete
@@ -90,7 +86,7 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer clearfix">
-              <a href="<?php echo base_url(); ?>a_dashboard/add_user" class="btn btn-sm btn-info float-left">Add User</a>
+            <a href="<?php echo base_url(); ?>a_dashboard/add_candidate" class="btn btn-sm btn-info float-left">Add Candidate</a>
             </div>
             <!-- /.card-footer -->
         </div><!-- /.container-fluid -->
@@ -98,3 +94,4 @@
     <!-- /.content -->
   </div>
 <!-- /.content-wrapper -->
+<?php echo base_url("a_dashboard/getUser/$object->user_id"); ?>

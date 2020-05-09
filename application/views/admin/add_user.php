@@ -69,8 +69,9 @@
                         <div class="form-group">
                             <label>Jurusan</label>
                             <select class="form-control" name="majors_id">
-                                <option value="1">Teknik Komputer</option>
-                                <option value="2">Teknik Elektro</option>
+                              <?php foreach ($majors as $object) : ?>
+                                <option value="<?php echo $object->id ?>"><?php echo $object->major ?></option>
+                              <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
@@ -79,8 +80,9 @@
                         <div class="form-group">
                             <label>Role</label>
                             <select class="form-control" name="role_id">
-                                <option value="1">Admin</option>
-                                <option value="2">User</option>
+                              <?php foreach ($role as $object) : ?>
+                                <option value="<?php echo $object->id ?>"><?php echo $object->name ?></option>
+                              <?php endforeach; ?>  
                             </select>
                         </div>
                     </div>
