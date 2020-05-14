@@ -44,8 +44,8 @@
                     <th>User Id</th>
                     <th>Nama</th>
                     <th>Description</th>
-                    <th>Field Id</th>
-                    <th>Position Id</th>
+                    <th>Field</th>
+                    <th>Position</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -57,19 +57,29 @@
                     <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
                     </td>
                 </tr> -->
+                <?php 
+                $array = [];
+                $array1 = [];
+                foreach ($field as $object) : 
+                  $array += array($object->id => $object->field);
+                endforeach;
+                foreach ($position as $object) : 
+                  $array1 += array($object->id => $object->position);
+                endforeach;
+                  ?>
                 <?php foreach ($users as $object) : ?>
                     <tr>
                         <td><?php echo $object->id ?></td>
                         <td><?php echo $object->user_id ?></td>
                         <td><?php echo $object->name ?></td>
                         <td><?php echo $object->description ?></td>
-                        <td><?php echo $object->field_id ?></td>
-                        <td><?php echo $object->position_id ?></td>
+                        <td><?php echo $array["$object->field_id"] ?></td>
+                        <td><?php echo $array1["$object->position_id"] ?></td>
                         <td class="project-actions text-right">
-                          <a class="btn btn-primary btn-sm" href="#">
+                          <a class="btn btn-primary btn-sm" href="<?php echo base_url("a_dashboard/edit_candidate/$object->id"); ?>">
                               <i class="fas fa-folder">
                               </i>
-                              Profile
+                              Edit
                           </a>
                           <a class="btn btn-danger btn-sm" href="<?php echo base_url("a_dashboard/del_candidate/$object->id"); ?>">
                               <i class="fas fa-trash">
@@ -94,4 +104,3 @@
     <!-- /.content -->
   </div>
 <!-- /.content-wrapper -->
-<?php echo base_url("a_dashboard/getUser/$object->user_id"); ?>

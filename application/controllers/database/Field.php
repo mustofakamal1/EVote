@@ -19,10 +19,10 @@ class Field extends REST_Controller {
      *
      * @return Response
     */
-	public function index_get($email = 0, $password = 0)
+	public function index_get($id = 0)
 	{
-        if(!empty($email && $password)){
-            $data = $this->db->get_where("field", ['email' => $email ,'password' => $password])->row_array();
+        if(!empty($id)){
+            $data = $this->db->get_where("field", ['id' => $id])->row_array();
         }else{
             $data = $this->db->get("field")->result();
         }

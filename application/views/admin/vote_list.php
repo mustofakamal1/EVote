@@ -10,7 +10,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">User List</li>
+              <li class="breadcrumb-item active">Vote List</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -23,7 +23,7 @@
       <div class="container-fluid">
         <div class="card">
             <div class="card-header border-transparent">
-            <h3 class="card-title">User List</h3>
+            <h3 class="card-title">Vote List</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -41,39 +41,29 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>NPM</th>
-                    <th>Name</th>
-                    <th>Phone Number</th>
-                    <th>Email</th>
-                    <!-- <th>Password</th> -->
-                    <th>Majors</th>
-                    <th>Role</th>
+                    <th>Nama Pemilihan</th>
+                    <th>State</th>
                 </tr>
                 </thead>
                 <tbody>
-                <!-- <tr>
-                    <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                    <td>Call of Duty IV</td>
-                    <td><span class="badge badge-success">Shipped</span></td>
-                    <td>
-                    <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-                    </td>
-                </tr> -->
-                <?php foreach ($users as $object) : ?>
+                <?php foreach ($field as $object) : ?>
                     <tr>
                         <td><?php echo $object->id ?></td>
-                        <td><?php echo $object->npm ?></td>
-                        <td><?php echo $object->name ?></td>
-                        <td><?php echo $object->phone ?></td>
-                        <td><?php echo $object->email ?></td>
-                        <!-- <td><?php echo $object->password ?></td> -->
-                        <td><?php echo $object->majors_id ?></td>
-                        <td><?php echo $object->role_id ?></td>
+                        <td><?php echo $object->field ?></td>
+                        <td><?php echo ($object->state)?"Active":"Not Active" ?></td>
                         <td class="project-actions text-right">
-                          <a class="btn btn-danger btn-sm" href="<?php echo base_url("a_dashboard/del_user/$object->id"); ?>">
-                              <i class="fas fa-trash">
+                          <a href="<?php echo base_url("a_dashboard/change_field/$object->id/$object->state"); ?>"
+                          <?php if($object->state): ?>
+                            class="btn btn-danger btn-sm">
+                            <i class="fas fa-stop-circle">
                               </i>
-                              Delete
+                              Stop Vote
+                          <?php else: ?>
+                            class="btn btn-success btn-sm">
+                            <i class="fas fa-check">
+                              </i>
+                              Activate Vote
+                          <?php endif ?>
                           </a>
                         </td>
                     </tr>

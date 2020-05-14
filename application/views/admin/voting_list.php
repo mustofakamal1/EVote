@@ -10,7 +10,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard</li>
+              <li class="breadcrumb-item active">User List</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -23,7 +23,7 @@
       <div class="container-fluid">
         <div class="card">
             <div class="card-header border-transparent">
-            <h3 class="card-title">User List</h3>
+            <h3 class="card-title">Voting List</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -45,7 +45,7 @@
                     <th>Name</th>
                     <th>Phone Number</th>
                     <th>Email</th>
-                    <th>Password</th>
+                    <!-- <th>Password</th> -->
                     <th>Majors</th>
                     <th>Role</th>
                 </tr>
@@ -66,9 +66,21 @@
                         <td><?php echo $object->name ?></td>
                         <td><?php echo $object->phone ?></td>
                         <td><?php echo $object->email ?></td>
-                        <td><?php echo $object->password ?></td>
+                        <!-- <td><?php echo $object->password ?></td> -->
                         <td><?php echo $object->majors_id ?></td>
                         <td><?php echo $object->role_id ?></td>
+                        <td class="project-actions text-right">
+                          <a class="btn btn-primary btn-sm" href="#">
+                              <i class="fas fa-folder">
+                              </i>
+                              Profile
+                          </a>
+                          <a class="btn btn-danger btn-sm" href="<?php echo base_url("a_dashboard/del_user/$object->id"); ?>">
+                              <i class="fas fa-trash">
+                              </i>
+                              Delete
+                          </a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
@@ -78,8 +90,7 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer clearfix">
-            <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Add User</a>
-            <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">Delete User</a>
+              <a href="<?php echo base_url(); ?>a_dashboard/add_user" class="btn btn-sm btn-info float-left">Add User</a>
             </div>
             <!-- /.card-footer -->
         </div><!-- /.container-fluid -->
