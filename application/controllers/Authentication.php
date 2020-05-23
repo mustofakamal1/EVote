@@ -14,18 +14,24 @@ class Authentication extends CI_Controller {
 	}
 
 	function login() {
-		
 		$email = $this->input->post('email');
 		$password = $this->input->post('password');
+		if(empty($email) && empty($password)) {
+			redirect('authentication');
+		}
 		$password = md5($password);
-		$email = "admin@gmail.com";
-		$password = "21232f297a57a5a743894a0e4a801fc3";
+		// $email = "admin@gmail.com";
+		// $password = "21232f297a57a5a743894a0e4a801fc3";
 		// $your_url = "http://localhost/pemilu/database/user/$email/$password";
 		// $data['json'] = file_get_contents($your_url);
 		// $data['test'] = json_decode($data['json']);
 		$client = new GuzzleHttp\Client();
 		$res = $client->request('GET', "http://localhost/pemilu/database/user/$email/$password/");
 		$data['test'] = json_decode($res->getBody());
+		// print_r($data['test']);
+		if(empty($data['test'])) {
+			redirect('authentication');
+		}
 		$login['id'] =  $data['test'] -> id;
 		$login['npm'] =  $data['test'] -> npm;
 		$login['name'] =  $data['test'] -> name;
@@ -34,11 +40,11 @@ class Authentication extends CI_Controller {
 		$login['password'] =  $data['test'] -> password;
 		$login['majors_id'] =  $data['test'] -> majors_id;
 		$login['role_id'] =  $data['test'] -> role_id;
-		// $this->session->set_flashdata($data);
+		$this->session->set_flashdata($data);
 		$cek = strcmp($email, $login['email']) || strcmp($password, $login['password']) 
 		|| strcmp(1, $login['role_id']);
 		$cek2 = strcmp($email, $login['email']) || strcmp($password, $login['password']) 
-		|| strcmp(1, $login['role_id']);
+		|| strcmp(2, $login['role_id']);
 
 		if ($cek == 0){
 			$data_session['user'] = $login;

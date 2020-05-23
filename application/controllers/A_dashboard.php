@@ -15,7 +15,6 @@ class A_dashboard extends CI_Controller {
 			redirect('authentication');
 			// echo $data['user']['role_id'];
 		}
-		
 	}
 
 	public function getUser($id)
@@ -29,6 +28,7 @@ class A_dashboard extends CI_Controller {
 			// echo $res->getHeader('content-type')[0];
 			// echo $res->getBody();
 			$data['getUser'] = json_decode($res->getBody());
+			// echo empty($data['getUser']);
 			// $this->load->view('templates/header');
 			// $this->load->view('templates/sidebar', $data);
 			// $this->load->view('admin/candidate_list', $data);
@@ -45,7 +45,7 @@ class A_dashboard extends CI_Controller {
 	public function getUserList()
 	{
 		$data = $this->session->userdata('data');
-		if($data['user']['role_id'] == 1) {
+		if($data['user']['role_id'] == 1 || 2) {
 			// $data['users'] = json_decode(file_get_contents("http://localhost/pemilu/database/user/"));
 			$client = new GuzzleHttp\Client();
 			$res = $client->request('GET', 'http://localhost/pemilu/database/user');

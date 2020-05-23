@@ -32,6 +32,7 @@
               </p>
             </a>
           </li>
+          <?php if($user['role_id'] == 1): ?>
           <li class="nav-item">
             <a href="<?php echo base_url(); ?>a_dashboard/getUserList" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
@@ -59,22 +60,36 @@
               </p>
             </a>
           </li>
+          <?php endif ?>
+          <?php if($user['role_id'] == 2): ?>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo base_url(); ?>u_dashboard/vote_list" class="nav-link"> 
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Vote Now
+                <!--<span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li>
+          <?php endif ?>
+          <li class="nav-item">
+            <a href="<?php echo base_url(); ?>u_dashboard/result" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Result
               </p>
             </a>
           </li>
+          <?php if($user['role_id'] == 2):?>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo base_url(); ?>u_dashboard/vote_list" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
                 Profile
               </p>
             </a>
           </li>
+          <?php endif ?>
           <li class="nav-item">
             <a href="<?php echo base_url(); ?>authentication/logout" class="nav-link" >
               <i class="nav-icon fas fa-tree"></i>

@@ -28,7 +28,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-            <form action="<?php echo base_url(); ?>a_dashboard/post_add_user/" method="post">
+              <form action="<?php echo base_url(); ?>a_dashboard/post_add_user/" method="post">
                 <div class="row">
                     <div class="col-sm-6">
                         <!-- text input -->
@@ -91,7 +91,7 @@
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
-            </form>
+              </form>
             </div>
             <!-- /.card-body -->
         </div>
