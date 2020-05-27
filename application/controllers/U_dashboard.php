@@ -112,25 +112,95 @@ class U_dashboard extends CI_Controller {
 	}
 
 	public function result(){
-		$test = $this->session->userdata('test');
-		$candidate_id = $this->input->post('candidate_id');
-		$user_id = $this->input->post('user_id');
-		$input = $this->input->post();
-		// foreach ($test['field'] as $object) {
-		// 	$array += array($object->id => $object->field);
-		// } 
-		// echo $candidate_id;
-		// echo $user_id;
-		// echo $input;
-		// echo $test['role_id'];
-		print_r($input);
+		$data = $this->session->userdata('data');
+		if($data['user']['role_id'] == 1 || 2) {
+			// $data['users'] = json_decode(file_get_contents("http://localhost/pemilu/database/user/"));
+			$client = new GuzzleHttp\Client();
+			$res = $client->request('GET', "http://localhost/pemilu/database/field/");
+			$ress = $client->request('GET', "http://localhost/pemilu/database/position");
+			$res1 = $client->request('GET', "http://localhost/pemilu/database/candidate");
+			$res2 = $client->request('GET', "http://localhost/pemilu/database/user");
+			$res3 = $client->request('GET', "http://localhost/pemilu/database/vote_history");
+			// echo $res->getStatusCode();
+			// echo $res->getHeader('content-type')[0];
+			// echo $res->getBody();
+			$data['field'] = json_decode($res->getBody());
+			$data['position'] = json_decode($ress->getBody());
+			$data['candidate'] = json_decode($res1->getBody());
+			$data['users'] = json_decode($res2->getBody());
+			$data['vote_history'] = json_decode($res3->getBody());
+			$this->load->view('templates/header');
+			$this->load->view('templates/sidebar', $data);
+			$this->load->view('user/result', $data);
+			// $this->load->view('testing/users', $data);
+			$this->load->view('templates/footer');
+		}
+		else {
+			redirect('authentication');
+		}
+	}
+
+	public function profile(){
+		$data = $this->session->userdata('data');
+		if($data['user']['role_id'] == 2) {
+			$data['majors'] = json_decode(file_get_contents("http://localhost/pemilu/database/majors/"));
+			// $data['user_id'] = $candidate->id;
+			$this->load->view('templates/header');
+			$this->load->view('templates/sidebar', $data);
+			$this->load->view('user/profile', $data);
+			$this->load->view('templates/footer');
+		}
+		else {
+			redirect('authentication');
+		}
+	}
+
+	public function put_profile(){
+		$data = $this->session->userdata('data');
+		if($data['user']['role_id'] == 2) {
+			$id 		= $data['user']['id'];
+			$password 	= $this->input->post('password');
+			if(strcmp(md5($password), $data['user']['password']) != 0 || empty($password)){
+				redirect('u_dashboard/profile');
+			}
+			$npassword 	= $this->input->post('newpassword');
+			$array = array(
+			'npm' 		=> $this->input->post('npm'),
+			'name' 		=> $this->input->post('name'),
+			'phone' 	=> $this->input->post('phone'),
+			'email' 	=> $this->input->post('email'),
+			'majors_id' => $this->input->post('majors_id')
+			);
+			if(!empty($npassword)){
+				$array['password'] = md5($npassword);
+			}
+			$client = new GuzzleHttp\Client();
+			$res = $client->request('PUT', "http://localhost/pemilu/database/user/$id", [
+				'form_params' => $array
+				// 'form_params' => $data
+			]);
+			$data['user'] = "";
+			$data['user'] = json_decode(file_get_contents("http://localhost/pemilu/database/user/0/0/$id"), true);
+			unset($_SESSION['data']);
+			$this->session->set_userdata('data', $data);
+			// echo $res->getStatusCode();
+			// echo $res->getHeader('content-type')[0];
+			// echo $res->getBody();
+			redirect('u_dashboard/profile');
+			}
+		else {
+			redirect('authentication');
+		}
 	}
 
 	public function test(){
-		$test = $this->session->userdata('test');
+		$test = $this->session->userdata('data');
 		$candidate_id = $this->input->post('candidate_id');
 		$user_id = $this->input->post('user_id');
 		$input = $this->input->post();
+		$client = new GuzzleHttp\Client();
+		$res3 = $client->request('GET', "http://localhost/pemilu/database/vote_history");
+		$data['votes'] = json_decode($res3->getBody());
 		// foreach ($test['field'] as $object) {
 		// 	$array += array($object->id => $object->field);
 		// } 
@@ -138,6 +208,9 @@ class U_dashboard extends CI_Controller {
 		// echo $user_id;
 		// echo $input;
 		// echo $test['role_id'];
-		print_r($input);
+		print_r($test);
+		// foreach($data['votes'] as $vote){
+		// 	echo $vote->candidate_id;
+		// }
 	}
 }

@@ -82,7 +82,7 @@
           </li>
           <?php if($user['role_id'] == 2):?>
           <li class="nav-item">
-            <a href="<?php echo base_url(); ?>u_dashboard/vote_list" class="nav-link">
+            <a href="<?php echo base_url(); ?>u_dashboard/profile" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
                 Profile
