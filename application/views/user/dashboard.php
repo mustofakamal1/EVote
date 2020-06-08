@@ -130,14 +130,18 @@
           </div>
         </div>
         <div class="card">
-            <div class="card-body p-0">
-                <div class="callout callout-info">
-                <h2><i class="fas fa-info"></i> Tutorial - Demo E-Vote Sebagai User</h2>
-                    <iframe width="420" height="315"
-                        src="https://www.youtube.com/embed/tgbNymZ7vqY">
-                    </iframe>
-                </div>
+          <div class="card-body p-0">
+            <div class="callout callout-info">
+              <h2><i class="fas fa-info"></i> Tutorial - Demo E-Vote Part 1</h2>
+              <iframe width="851" height="480" src="https://www.youtube.com/embed/UvTqL27m7WQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
+          </div>
+          <div class="card-body p-0">
+            <div class="callout callout-info">
+              <h2><i class="fas fa-info"></i> Tutorial - Demo E-Vote Part 2</h2>
+              <iframe width="851" height="480" src="https://www.youtube.com/embed/YeA7fMxNUcw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+          </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
