@@ -36,7 +36,7 @@
                             <label>User</label>
                             <select class="form-control" name="user_id">
                               <?php foreach ($users as $object) :
-                                if (in_array($object->id, $can) == false):?>
+                                if (in_array($object->id, $can) == false && $object->role_id == 2):?>
                                 <option value="<?php echo $object->id ?>"><?php echo $object->name ?></option>
                                 <?php endif; 
                             endforeach; ?>

@@ -9,7 +9,7 @@ class U_dashboard extends CI_Controller {
 		if($data['user']['role_id'] == 2) {
 			$this->load->view('templates/header');
 			$this->load->view('templates/sidebar', $data);
-			$this->load->view('admin/dashboard', $data);
+			$this->load->view('user/dashboard', $data);
 			$this->load->view('templates/footer');
 		}
 		else {
@@ -191,6 +191,7 @@ class U_dashboard extends CI_Controller {
 
 			$data['user'] = "";
 			$data['user'] = json_decode(file_get_contents("http://localhost/pemilu/database/user/0/0/$id"), true);
+			$data['user']['image'] = "assets/user/profile/$id.jpg";
 			unset($_SESSION['data']);
 			$this->session->set_userdata('data', $data);
 			// echo $res->getStatusCode();

@@ -254,7 +254,6 @@ class A_dashboard extends CI_Controller {
 			$this->load->view('templates/header');
 			$this->load->view('templates/sidebar', $data);
 			$this->load->view('admin/vote_list', $data);
-			// $this->load->view('testing/users', $data);
 			$this->load->view('templates/footer');
 		}
 		else {
@@ -328,6 +327,63 @@ class A_dashboard extends CI_Controller {
 			echo $res->getBody();
 			redirect('a_dashboard/getCandidateList');
 			}
+		else {
+			redirect('authentication');
+		}
+	}
+
+	public function add_vote(){
+		$data = $this->session->userdata('data');
+		if($data['user']['role_id'] == 1) {
+			$data['field'] = json_decode(file_get_contents("http://localhost/pemilu/database/field/"));
+			$data['position'] = json_decode(file_get_contents("http://localhost/pemilu/database/position/"));
+			$this->load->view('templates/header');
+			$this->load->view('templates/sidebar', $data);
+			$this->load->view('admin/add_vote');
+			$this->load->view('templates/footer');
+		}
+		else {
+			redirect('authentication');
+		}
+	}
+
+	public function post_add_vote(){
+		// $data = $this->input->post();
+		$data = $this->session->userdata('data');
+		if($data['user']['role_id'] == 1) {
+			$field 		= $this->input->post('field');
+			$state 	= false;
+			// $data_session = array(
+			// 	'npm'			=> $this->input->post('npm'),
+			// 	'role_id'				=> $this->input->post('role_id'),
+			// );
+			// $this->session->set_userdata('test', $data);
+			$client = new GuzzleHttp\Client();
+			$res = $client->request('POST', 'http://localhost/pemilu/database/field/', [
+				'form_params' => [
+					'field' => "$field",
+					'state' => "$state"
+				]
+			]);
+			echo $res->getStatusCode();
+			echo $res->getHeader('content-type')[0];
+			echo $res->getBody();
+			redirect('a_dashboard/voting_list');
+		}
+		else {
+			redirect('authentication');
+		}
+	}
+
+	public function del_vote($id){
+		// $test = $this->session->userdata('test');
+		$data = $this->session->userdata('data');
+		if($data['user']['role_id'] == 1) {
+		$client = new GuzzleHttp\Client();
+		$res = $client->request('DELETE', "http://localhost/pemilu/database/field/$id");
+		$res = $client->request('DELETE', "http://localhost/pemilu/database/position/$id");
+		redirect('a_dashboard/getUserList');
+		}
 		else {
 			redirect('authentication');
 		}

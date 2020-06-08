@@ -65,6 +65,11 @@
                               Activate Vote
                           <?php endif ?>
                           </a>
+                          <a class="btn btn-warning btn-sm" href="<?php echo base_url("a_dashboard/del_user/$object->id"); ?>">
+                              <i class="fas fa-trash">
+                              </i>
+                              Delete
+                          </a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -75,7 +80,7 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer clearfix">
-              <a href="<?php echo base_url(); ?>a_dashboard/add_vote" class="btn btn-sm btn-info float-left">Add User</a>
+              <a href="<?php echo base_url(); ?>a_dashboard/add_vote" class="btn btn-sm btn-info float-left">Add Vote</a>
             </div>
             <!-- /.card-footer -->
         </div><!-- /.container-fluid -->

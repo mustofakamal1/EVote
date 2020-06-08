@@ -11,8 +11,15 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
+        <?php 
+              $id = $user['id'];
+              if($user['role_id'] == 1):
+              $image = "./assets/admin/admin.jpg";
+              else : 
+                $image = "./assets/user/profile/$id.jpg";
+              endif;?>
           <!-- <img src="<?php echo base_url(); ?>assets/user/profile/<?php echo $user['id']?>.jpg" class="img-circle elevation-2" alt="User Image"> -->
-          <img src="<?php echo base_url(); ?><?php echo $user['image']?>" class="img-circle elevation-2" alt="User Image">
+          <img src="<?php echo base_url(); ?><?php echo $image ?>" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">
@@ -26,7 +33,12 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <?php if($user['role_id'] == 1):
+              $href = base_url('a_dashboard'); 
+              else : 
+                $href = base_url('u_dashboard'); 
+              endif;?>
+            <a href=<?php echo $href?> class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i> 
               <p>
                 Dashboard

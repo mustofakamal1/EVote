@@ -25,7 +25,8 @@
   <section class="content">
     <div class="container-fluid">
     <?php 
-    foreach($field as $fi):?>
+    foreach($field as $fi):
+    if (!$fi->state): continue; endif;?>
       <div class="card">
         <div class="card-header border-transparent">
           <h3 class="card-title"><?php echo $fi->field ?> Votes</h3>
@@ -53,13 +54,19 @@
             <div class="small-box bg-info">
                 <div class="inner">
                     <?php foreach($users as $us): 
-                    if($vote->user_id == $us->id):?>
-                <h3><?php echo $us->name ?></h3>
-                <?php
+                    if($vote->user_id == $us->id):
+                    $image = "assets/user/profile/$us->id.jpg";?>
+                    <h1>
+                    <!-- <a href="#"><?php echo $us->name ?></a></h1> -->
+                  <h1><?php echo $us->name ?></h1>
+                    <div class="image">
+                      <img src="<?php echo base_url(); ?><?php echo $image?>" class="img-circle elevation-2" alt="User Image" width="70%" height="70%">
+                    </div>
+                  <?php
                     endif;
                     endforeach; ?>
                 
-                <!-- <p>New Orders</p> -->
+                  <!-- <p>New Orders</p> -->
                     <?php 
                     $sum = 0;
                     foreach($vote_history as $vo): 
@@ -68,10 +75,7 @@
                     <?php
                     endif;
                     endforeach; ?>
-                    <h1><?php echo $sum ?></h1>
-                </div>
-                <div class="icon">
-                <i class="ion ion-bag"></i>
+                    <h1>Jumlah Pemilih: <?php echo $sum ?></h1>
                 </div>
             </div>
             </div>
