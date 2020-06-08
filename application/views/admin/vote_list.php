@@ -23,7 +23,7 @@
       <div class="container-fluid">
         <div class="card">
             <div class="card-header border-transparent">
-            <h3 class="card-title">Vote List</h3>
+            <h3 class="card-title">Vote List (Field)</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -65,7 +65,7 @@
                               Activate Vote
                           <?php endif ?>
                           </a>
-                          <a class="btn btn-warning btn-sm" href="<?php echo base_url("a_dashboard/del_user/$object->id"); ?>">
+                          <a class="btn btn-warning btn-sm" href="<?php echo base_url("a_dashboard/del_vote/$object->id"); ?>">
                               <i class="fas fa-trash">
                               </i>
                               Delete
@@ -79,10 +79,71 @@
             <!-- /.table-responsive -->
             </div>
             <!-- /.card-body -->
-            <div class="card-footer clearfix">
-              <a href="<?php echo base_url(); ?>a_dashboard/add_vote" class="btn btn-sm btn-info float-left">Add Vote</a>
-            </div>
-            <!-- /.card-footer -->
+          <div class="card-footer clearfix">
+            <a href="<?php echo base_url(); ?>a_dashboard/add_vote" class="btn btn-sm btn-info float-left">Add Vote</a>
+          </div>
+          <!-- /.card-footer -->
+          <div class="card">
+          <div class="card-header border-transparent">
+          <h3 class="card-title">Vote List (Posisi)</h3>
+
+          <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              <i class="fas fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove">
+              <i class="fas fa-times"></i>
+              </button>
+          </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body p-0">
+          <div class="table-responsive">
+              <table class="table m-0">
+              <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>Posisi</th>
+              </tr>
+              </thead>
+              <tbody>
+              <?php foreach ($position as $object) : ?>
+                  <tr>
+                      <td><?php echo $object->id ?></td>
+                      <td><?php echo $object->position ?></td>
+                      <!-- <td><?php echo ($object->state)?"Active":"Not Active" ?></td> -->
+                      <td class="project-actions text-right">
+                        <!-- <a href="<?php echo base_url("a_dashboard/change_field/$object->id/$object->state"); ?>" -->
+                        <!-- <?php if($object->state): ?>
+                          class="btn btn-danger btn-sm">
+                          <i class="fas fa-stop-circle">
+                            </i>
+                            Stop Vote
+                        <?php else: ?>
+                          class="btn btn-success btn-sm">
+                          <i class="fas fa-check">
+                            </i>
+                            Activate Vote
+                        <?php endif ?>
+                        </a> -->
+                        <a class="btn btn-warning btn-sm" href="<?php echo base_url("a_dashboard/del_pos/$object->id"); ?>">
+                            <i class="fas fa-trash">
+                            </i>
+                            Delete
+                        </a>
+                      </td>
+                  </tr>
+              <?php endforeach; ?>
+              </tbody>
+              </table>
+          </div>
+          <!-- /.table-responsive -->
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer clearfix">
+            <a href="<?php echo base_url(); ?>a_dashboard/add_pos" class="btn btn-sm btn-info float-left">Add Position</a>
+          </div>
+          <!-- /.card-footer -->
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->

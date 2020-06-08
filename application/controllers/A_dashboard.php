@@ -244,7 +244,7 @@ class A_dashboard extends CI_Controller {
 	{
 		$data = $this->session->userdata('data');
 		if($data['user']['role_id'] == 1) {
-			// $data['users'] = json_decode(file_get_contents("http://localhost/pemilu/database/user/"));
+			$data['position'] = json_decode(file_get_contents("http://localhost/pemilu/database/position/"));
 			$client = new GuzzleHttp\Client();
 			$res = $client->request('GET', 'http://localhost/pemilu/database/field');
 			// echo $res->getStatusCode();
@@ -347,6 +347,20 @@ class A_dashboard extends CI_Controller {
 		}
 	}
 
+	public function add_pos(){
+		$data = $this->session->userdata('data');
+		if($data['user']['role_id'] == 1) {
+			$data['position'] = json_decode(file_get_contents("http://localhost/pemilu/database/position/"));
+			$this->load->view('templates/header');
+			$this->load->view('templates/sidebar', $data);
+			$this->load->view('admin/add_pos');
+			$this->load->view('templates/footer');
+		}
+		else {
+			redirect('authentication');
+		}
+	}
+
 	public function post_add_vote(){
 		// $data = $this->input->post();
 		$data = $this->session->userdata('data');
@@ -375,14 +389,52 @@ class A_dashboard extends CI_Controller {
 		}
 	}
 
+	public function post_add_pos(){
+		// $data = $this->input->post();
+		$data = $this->session->userdata('data');
+		if($data['user']['role_id'] == 1) {
+			$position 		= $this->input->post('position');
+			// $data_session = array(
+			// 	'npm'			=> $this->input->post('npm'),
+			// 	'role_id'				=> $this->input->post('role_id'),
+			// );
+			// $this->session->set_userdata('test', $data);
+			$client = new GuzzleHttp\Client();
+			$res = $client->request('POST', 'http://localhost/pemilu/database/position/', [
+				'form_params' => [
+					'position' => "$position"
+				]
+			]);
+			echo $res->getStatusCode();
+			echo $res->getHeader('content-type')[0];
+			echo $res->getBody();
+			redirect('a_dashboard/voting_list');
+		}
+		else {
+			redirect('authentication');
+		}
+	}
+
 	public function del_vote($id){
 		// $test = $this->session->userdata('test');
 		$data = $this->session->userdata('data');
 		if($data['user']['role_id'] == 1) {
 		$client = new GuzzleHttp\Client();
 		$res = $client->request('DELETE', "http://localhost/pemilu/database/field/$id");
+		redirect('a_dashboard/voting_list');
+		}
+		else {
+			redirect('authentication');
+		}
+	}
+
+	public function del_pos($id){
+		// $test = $this->session->userdata('test');
+		$data = $this->session->userdata('data');
+		if($data['user']['role_id'] == 1) {
+		$client = new GuzzleHttp\Client();
 		$res = $client->request('DELETE', "http://localhost/pemilu/database/position/$id");
-		redirect('a_dashboard/getUserList');
+		redirect('a_dashboard/voting_list');
 		}
 		else {
 			redirect('authentication');
