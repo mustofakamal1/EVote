@@ -32,6 +32,7 @@ class Authentication extends CI_Controller {
 		if(empty($data['test'])) {
 			redirect('authentication');
 		}
+		$id = $data['test'] -> id;
 		$login['id'] =  $data['test'] -> id;
 		$login['npm'] =  $data['test'] -> npm;
 		$login['name'] =  $data['test'] -> name;
@@ -40,6 +41,7 @@ class Authentication extends CI_Controller {
 		$login['password'] =  $data['test'] -> password;
 		$login['majors_id'] =  $data['test'] -> majors_id;
 		$login['role_id'] =  $data['test'] -> role_id;
+		$login['image'] = "assets/user/profile/$id.jpg";
 		$this->session->set_flashdata($data);
 		$cek = strcmp($email, $login['email']) || strcmp($password, $login['password']) 
 		|| strcmp(1, $login['role_id']);

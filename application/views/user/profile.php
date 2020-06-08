@@ -27,7 +27,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <form action="<?php echo base_url(); ?>u_dashboard/put_profile/" method="post">
+              <form action="<?php echo base_url(); ?>u_dashboard/put_profile/" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-sm-6">
                         <!-- text input -->
@@ -59,15 +59,23 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <!-- select -->
-                        <div class="form-group">
-                            <label>Jurusan</label>
-                            <select class="form-control" name="majors_id">
-                              <?php foreach ($majors as $object) : ?>
-                                <option value="<?php echo $object->id ?>"><?php echo $object->major ?></option>
-                              <?php endforeach; ?>
-                            </select>
-                        </div>
+                      <div class="form-group">
+                        <label>Jurusan</label>
+                        <select class="form-control" name="majors_id">
+                          <?php foreach ($majors as $object) : ?>
+                            <option value="<?php echo $object->id ?>"><?php echo $object->major ?></option>
+                          <?php endforeach; ?>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>Image Profile</label>
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="image_profile" name="image_profile">
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                          </div>
+                      </div>
                     </div>
                 </div>
                 <div class="row">

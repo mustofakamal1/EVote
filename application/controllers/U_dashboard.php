@@ -179,6 +179,16 @@ class U_dashboard extends CI_Controller {
 				'form_params' => $array
 				// 'form_params' => $data
 			]);
+			$config['upload_path']          = './assets/user/profile';
+			$config['allowed_types']        = 'jpg';
+			$config['file_name']            = $id;
+			$config['overwrite']			= true;
+			$config['max_size']             = 1024; // 1MB
+			// $this->load->library('upload', $config);
+			$this->load->library('upload'); 
+			$this->upload->initialize($config);
+			$this->upload->do_upload('image_profile');
+
 			$data['user'] = "";
 			$data['user'] = json_decode(file_get_contents("http://localhost/pemilu/database/user/0/0/$id"), true);
 			unset($_SESSION['data']);
@@ -194,13 +204,13 @@ class U_dashboard extends CI_Controller {
 	}
 
 	public function test(){
-		$test = $this->session->userdata('data');
-		$candidate_id = $this->input->post('candidate_id');
-		$user_id = $this->input->post('user_id');
-		$input = $this->input->post();
-		$client = new GuzzleHttp\Client();
-		$res3 = $client->request('GET', "http://localhost/pemilu/database/vote_history");
-		$data['votes'] = json_decode($res3->getBody());
+		// $test = $this->session->userdata('data');
+		// $candidate_id = $this->input->post('candidate_id');
+		// $user_id = $this->input->post('user_id');
+		// $input = $this->input->post();
+		// $client = new GuzzleHttp\Client();
+		// $res3 = $client->request('GET', "http://localhost/pemilu/database/vote_history");
+		// $data['votes'] = json_decode($res3->getBody());
 		// foreach ($test['field'] as $object) {
 		// 	$array += array($object->id => $object->field);
 		// } 
@@ -208,9 +218,31 @@ class U_dashboard extends CI_Controller {
 		// echo $user_id;
 		// echo $input;
 		// echo $test['role_id'];
-		print_r($test);
+		// print_r($test);
 		// foreach($data['votes'] as $vote){
 		// 	echo $vote->candidate_id;
 		// }
+		$this->load->view('testing/upload');
+	}
+
+	public function image(){
+		$config['upload_path']          = './assets/user/profile';
+		$config['allowed_types']        = 'gif|jpg|png';
+		$config['file_name']            = 'test';
+		$config['overwrite']			= true;
+		$config['max_size']             = 1024; // 1MB
+		// $this->load->library('upload', $config);
+		$this->load->library('upload'); 
+		$this->upload->initialize($config);
+		$this->upload->do_upload('image_profile');
+		if (!$this->upload->do_upload('profile_image')) {
+			$error = array('error' => $this->upload->display_errors());
+
+			$this->load->view('testing/upload', $error);
+		} else {
+			$data = array('image_metadata' => $this->upload->data());
+
+			$this->load->view('testing/image', $data);
+		} 
 	}
 }

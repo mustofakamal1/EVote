@@ -184,8 +184,14 @@ class A_dashboard extends CI_Controller {
 		$data = $this->session->userdata('data');
 		if($data['user']['role_id'] == 1) {
 			$data['users'] = json_decode(file_get_contents("http://localhost/pemilu/database/user/"));
+			$data['candidate'] = json_decode(file_get_contents("http://localhost/pemilu/database/candidate/"));
 			$data['field'] = json_decode(file_get_contents("http://localhost/pemilu/database/field/"));
 			$data['position'] = json_decode(file_get_contents("http://localhost/pemilu/database/position/"));
+			$arr = array();
+			foreach ($data['candidate'] as $object) {
+				array_push($arr, $object->user_id);
+			}
+			$data['can'] = $arr;
 			$this->load->view('templates/header');
 			$this->load->view('templates/sidebar', $data);
 			$this->load->view('admin/add_candidate', $data);

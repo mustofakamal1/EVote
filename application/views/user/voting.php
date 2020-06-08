@@ -28,6 +28,9 @@
       
       <div class="card-deck">
         <?php foreach($field as $vote): 
+          if ($vote->state != 1):
+            continue;
+          endif;
           $cek = 1;
           foreach($votes as $vot):
             if($vot->user_id == $user['id'] && $vot->field_id == $vote->id): 

@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
+            <h1 class="m-0 text-dark">Vote List</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -75,7 +75,7 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer clearfix">
-              <a href="<?php echo base_url(); ?>a_dashboard/add_user" class="btn btn-sm btn-info float-left">Add User</a>
+              <a href="<?php echo base_url(); ?>a_dashboard/add_vote" class="btn btn-sm btn-info float-left">Add User</a>
             </div>
             <!-- /.card-footer -->
         </div><!-- /.container-fluid -->

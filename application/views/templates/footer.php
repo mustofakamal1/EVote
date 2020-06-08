@@ -3,7 +3,7 @@
     <strong>Copyright &copy; 2020 <a href="http://localhost/pemilu">E - Vote</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 2.0 (15 April 2020)
+      <b>Version</b> 2.0 (June 2020)
     </div>
   </footer>
 

@@ -8,12 +8,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Dashboard</h1>
+          <h1 class="m-0 text-dark">Result</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Vote Now</li>
+            <li class="breadcrumb-item active">Result</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -26,10 +26,24 @@
     <div class="container-fluid">
     <?php 
     foreach($field as $fi):?>
-    <h2><?php echo $fi->field ?> Votes</h2>
+      <div class="card">
+        <div class="card-header border-transparent">
+          <h3 class="card-title"><?php echo $fi->field ?> Votes</h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <!-- /.card-header -->
         <?php 
         foreach($position as $pos):?>
-        <h3><?php echo $pos->position ?></h3>
+          <div class="callout callout-info">
+            <h2><?php echo $pos->position ?></h2>
+          <!-- </div> -->
         <!-- Vote List -->   
         <div class="card-deck">
             <?php foreach($candidate as $vote): 
@@ -59,20 +73,14 @@
                 <div class="icon">
                 <i class="ion ion-bag"></i>
                 </div>
-                <?php 
-                if(false):?>
-                <a href="<?php echo base_url("u_dashboard/vote_list_field/$vote->id"); ?>" class="small-box-footer">Vote Now <i class="fas fa-arrow-circle-right"></i></a>
-                <?php 
-                else: ?>
-                <a href="<?php echo base_url("u_dashboard/result/"); ?>" class="small-box-footer">Cek Hasil <i class="fas fa-arrow-circle-right"></i></a>
-                <?php 
-                endif;?>
             </div>
             </div>
             <?php endif;?>
         <?php endforeach; ?>
         </div>
+        </div>
         <?php endforeach; ?>
+        </div>
     <?php endforeach; ?>
   </div><!-- /.container-fluid -->
   </section>
