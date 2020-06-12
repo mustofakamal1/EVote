@@ -1,3 +1,8 @@
+####
+Catatan : File .sql berada di direktori application -> SQL
+####
+
+
 ###################
 What is CodeIgniter
 ###################
